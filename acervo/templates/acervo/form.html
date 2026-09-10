@@ -1,0 +1,19 @@
+{% extends "acervo/base.html" %}
+
+{% block titulo %}Cadastrar Livro{% endblock %}
+
+{% block conteudo %}
+<section class="form-card">
+    <h2>Cadastrar Livro</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="actions">
+            <button class="button" type="submit">Salvar</button>
+            <a class="button secondary" href="{% url 'lista' %}">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

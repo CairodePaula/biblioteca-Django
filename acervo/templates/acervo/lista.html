@@ -6,9 +6,50 @@
 <section class="hero">
     <div>
         <h2>Acervo de Livros</h2>
+        <p>Pesquise por nome, autor, tipo de acervo ou categoria.</p>
     </div>
     <a class="button" href="{% url 'novo_livro' %}">+ Cadastrar livro</a>
 </section>
+
+<form method="get" class="search-card">
+    <div class="field">
+        <label for="q">Nome ou autor</label>
+        <input id="q" type="text" name="q" value="{{ busca }}" placeholder="Digite para pesquisar">
+    </div>
+
+    <div class="field">
+        <label for="tipo">Tipo de acervo</label>
+        <select id="tipo" name="tipo">
+            <option value="">Todos</option>
+            {% for value, label in tipos %}
+                <option value="{{ value }}" {% if tipo_selecionado == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="field">
+        <label for="categoria">Categoria</label>
+        <select id="categoria" name="categoria">
+            <option value="">Todas</option>
+            {% for value, label in categorias %}
+                <option value="{{ value }}" {% if categoria_selecionada == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="actions">
+        <button class="button" type="submit">Pesquisar</button>
+        <a class="button secondary" href="{% url 'lista' %}">Limpar</a>
+    </div>
+</form>
+
+{% if busca or tipo_selecionado or categoria_selecionada %}
+<p class="result-info">{{ livros|length }} resultado(s) encontrado(s).</p>
+{% endif %}
 
 <div class="book-grid">
     {% for livro in livros %}
@@ -29,7 +70,8 @@
     </article>
     {% empty %}
     <div class="empty">
-        <h3>Nenhum livro cadastrado.</h3>
+        <h3>Nenhum livro encontrado.</h3>
+        <p>Tente alterar os filtros ou cadastre um novo livro.</p>
     </div>
     {% endfor %}
 </div>

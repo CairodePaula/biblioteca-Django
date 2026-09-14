@@ -3,7 +3,12 @@
 {% block titulo %}Acervo - Biblioteca{% endblock %}
 
 {% block conteudo %}
-<h2>Acervo de Livros</h2>
+<section class="hero">
+    <div>
+        <h2>Acervo de Livros</h2>
+    </div>
+    <a class="button" href="{% url 'novo_livro' %}">+ Cadastrar livro</a>
+</section>
 
 <div class="book-grid">
     {% for livro in livros %}
@@ -11,6 +16,16 @@
         <h3>{{ livro.titulo }}</h3>
         <p><strong>Autor:</strong> {{ livro.autor }}</p>
         <p><strong>Ano:</strong> {{ livro.ano }}</p>
+        <p><strong>Tipo:</strong> {{ livro.get_tipo_acervo_display }}</p>
+        <p><strong>Categoria:</strong> {{ livro.get_categoria_display }}</p>
+        <p>
+            <strong>Status:</strong>
+            {% if livro.disponivel %}
+                <span class="status available">Disponível</span>
+            {% else %}
+                <span class="status unavailable">Indisponível</span>
+            {% endif %}
+        </p>
     </article>
     {% empty %}
     <div class="empty">

@@ -1,21 +1,29 @@
 # Biblioteca — Consolidado das Aulas 04 e 05
 
 Projeto Django de gerenciamento de acervo de livros, desenvolvido na disciplina
-**Laboratório de Programação Full Stack** (Universidade de Vassouras).
+**Laboratório de Programação Full Stack** — Universidade de Vassouras.
 
-- **Aula 04:** projeto, app, model, PostgreSQL, migrações, ORM e Django Admin.
-- **Aula 05:** views, URLs, templates, herança de templates e ModelForm.
+**Aluno:** Cairo de Paula Cunha Gomes  
+**Professor:** Márcio Garrido  
+**Disciplina:** Laboratório de Programação Full Stack — Eng.Soft06_B_N_M_991533_20262  
+**Curso:** Engenharia de Software  
+
+---
+
+## Sobre o Projeto
+
+Sistema web para gerenciamento de um acervo de livros, construído do zero com Django e PostgreSQL.
+
+- **Aula 04:** ambiente virtual, projeto, app, model, migrações, ORM e Django Admin
+- **Aula 05:** views, URLs, templates, herança de templates e ModelForm
+
+---
 
 ## Funcionalidades
 
-- Cadastro de livros (título, autor, ano, disponibilidade).
-- **Tipo de acervo:** Digital ou Físico.
-- **Categoria (CDD):** 000 a 900.
-- **Pesquisa por nome** (título ou autor), **por tipo de acervo** e **por categoria** — filtros combináveis.
-- Listagem em cards, com mensagem para lista vazia.
-- Django Admin com busca (`search_fields`) e filtros (`list_filter`).
-
-### Categorias utilizadas
+- Cadastro de livros (título, autor, ano, disponibilidade)
+- **Tipo de acervo:** Digital ou Físico
+- **Categoria (CDD):**
 
 | Código | Área |
 |--------|------|
@@ -30,22 +38,34 @@ Projeto Django de gerenciamento de acervo de livros, desenvolvido na disciplina
 | 800 | Literatura |
 | 900 | História e Geografia |
 
+- **Pesquisa combinada** por nome/autor, tipo de acervo e categoria
+- Listagem em cards com status de disponibilidade
+- Django Admin com busca e filtros
+
+---
+
 ## Tecnologias
 
-Python 3.10+ · Django 5 · PostgreSQL · python-dotenv · HTML/CSS
+- Python 3.10+
+- Django 5
+- PostgreSQL
+- python-dotenv
+- HTML / CSS
+
+---
 
 ## Como executar
 
-### 1. Ambiente virtual e dependências
+### 1. Ambiente virtual
 
-Windows:
+**Windows:**
 ```bash
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-macOS / Linux:
+**macOS / Linux:**
 ```bash
 python3 -m venv venv
 source venv/bin/activate
@@ -54,11 +74,15 @@ pip install -r requirements.txt
 
 ### 2. Banco de dados
 
+Crie o banco no PostgreSQL:
 ```sql
 CREATE DATABASE biblioteca_db;
 ```
 
-Copie `.env.example` para `.env` e ajuste os valores:
+Copie o arquivo de exemplo e preencha com seus dados:
+```bash
+cp .env.example .env
+```
 
 ```env
 DB_NAME=biblioteca_db
@@ -69,8 +93,6 @@ DB_PORT=5432
 SECRET_KEY=troque-esta-chave
 ```
 
-O arquivo `.env` está no `.gitignore` e nunca deve ser versionado.
-
 ### 3. Migrações e execução
 
 ```bash
@@ -79,31 +101,33 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+---
+
 ## Rotas
 
 | Rota | Descrição |
 |------|-----------|
-| `/` e `/livros/` | Listagem do acervo com pesquisa e filtros |
+| `/` | Listagem do acervo com pesquisa e filtros |
 | `/livros/novo/` | Cadastro de livro |
 | `/admin/` | Django Admin |
 
-Exemplo de pesquisa combinada: `/?q=machado&tipo=FISICO&categoria=800`
+---
 
-## Estrutura
+## Estrutura do Projeto
 
 ```
 biblioteca/
 ├── manage.py
 ├── requirements.txt
 ├── .env.example
-├── biblioteca/          # configurações do projeto
+├── biblioteca/
 │   ├── settings.py
 │   └── urls.py
-└── acervo/              # app do acervo
-    ├── models.py        # model Livro (tipo de acervo + categoria)
-    ├── views.py         # listagem com pesquisa e cadastro
-    ├── forms.py         # LivroForm (ModelForm)
-    ├── urls.py          # rotas do app (criado manualmente)
+└── acervo/
+    ├── models.py
+    ├── views.py
+    ├── forms.py
+    ├── urls.py
     ├── admin.py
     ├── migrations/
     ├── templates/acervo/
